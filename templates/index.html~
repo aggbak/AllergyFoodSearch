@@ -1,0 +1,25 @@
+<html>
+	<body>
+		<center>
+			<h1>Food Product Database</h1> <br />
+		<form action="product_search.html" id="product_form">
+			<input placeholder="Product terms" type="text" name="search_terms" /> <br />
+			<input placeholder="Filter ingredients" type="text" name="ingredient_exclusions"> <br />
+				<button type="Submit"/>Submit</button>
+		</form> <br />
+		<h4> Common allergens </h4>
+		<select style="height:100px" multiple name="select_allergens" form="process_form">
+			<option value="milk">Milk</option>
+			<option value="corn">Corn</option>
+			<option value="dextrose">Dextrose</option>
+			<option value="maltodextrin">Maltodextrin</option>
+			<option value="peanut">Peanut</option>
+			<option value="soy">Soy</option>
+			<option value="wheat">Wheat</option>
+			<option value="shrimp">Shrimp</option>
+			<option value="lobster">Lobster</option>
+			<option value="gelatin">Gelatin</option>
+		</select>
+		</center>
+	</body>
+</html>

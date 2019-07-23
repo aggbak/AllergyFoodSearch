@@ -1,0 +1,35 @@
+<html>
+<style>
+td {
+	padding: 10px; 
+}
+
+th {
+	padding: 20px;
+}
+
+</style>
+	<body>
+		<center> 
+			<img src="/static/{{entry[2]}}.jpg"></img>
+			<br />
+			<br />
+			<table>
+				<tr>
+					<th> Name </th>
+					<th> Ingredients </th>
+					<th> UPC </th>
+				</tr>	
+				
+				<tr>
+
+					<td> {{ entry[0] }} </td>
+					<td> {{ entry[1] }} </td>
+					<td> {{ entry[2] }} </td>
+
+				</tr>
+
+			</table>
+		</center>	
+	</body>
+</html>

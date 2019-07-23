@@ -1,0 +1,49 @@
+<html>
+<style>
+td {
+	color:royalblue;
+	font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+th {
+	color:indigo;
+	text-align: left;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	padding: 12px 16px;
+	z-index: 1;
+}
+
+.dropdown-content:hover .dropdown-content {
+	display: block;
+}
+
+</style>
+	<body>
+		<a href="/"> Home </a>
+		<table id="matched_products">
+			<tr>
+				<th>Name</th>
+				<th>Manufacturer</th>
+				<th>UPC</th>
+			</tr>
+			{% for entry in entries %}
+			<tr>
+				<td class="entry_name">  {{ entry[0] }} <span class="dropdown-content"> {{ entry[3] }} </span>  </td> 
+				<td class="entry_manufacturer"> {{ entry[2] }} </td>
+				<td class="entry_upc"> <a href="upc_match.html?upc={{ entry[1] }}"> {{ entry[1] }} </a> </td>
+			</tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>

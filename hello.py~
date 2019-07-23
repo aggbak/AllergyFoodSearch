@@ -1,0 +1,61 @@
+from flask import Flask, escape, request, render_template
+import sys
+import dbmgr
+import sqlite3
+app = Flask(__name__)
+
+
+def remove_empties(lst):
+    return list(filter(lambda x: x != '', lst))
+
+@app.route('/')
+def hello():
+    return render_template("index.html")
+
+@app.route("/product_search.html")
+def process_page():
+   select_allergens = request.args.getlist("select_allergens")
+   typed_allergens = request.args.get("ingredient_exclusions")
+
+   search_terms = request.args.get("search_terms")
+   lst_search_terms = search_terms.split(",")
+
+   print(lst_search_terms)
+   lst_all_allergens = typed_allergens.split(",") + select_allergens
+   lst_all_allergens = remove_empties(lst_all_allergens)
+   print(lst_all_allergens)
+   query = dbmgr.construct_search_query(lst_all_allergens, lst_search_terms)
+   
+   conn = sqlite3.connect("Products.db")
+   cursor = conn.cursor()
+   entries = []
+   print("entries scanning")
+   print(query)
+   for iterator in cursor.execute(query):
+       entries.append(iterator)
+
+   return render_template("products.html", entries=entries)
+   
+@app.route("/upc_match.html")
+def product_and_image():
+    upc = request.args.get("upc")
+    if upc == None:
+        return "No products found with that upc"
+    conn = sqlite3.connect("Products.db")
+    cursor = conn.cursor()
+    entries = []
+    print("Getting matching product: " + upc)
+    query = "SELECT long_name, ingredients_english, gtin_upc from Products where gtin_upc = " + upc
+    print("QUERY: " + query) 
+    for iterator in cursor.execute(query):
+        entries.append(iterator)
+    
+
+    # There should only be one entry
+    entry = entries[0]
+    return render_template("upc_match.html", entry=entry)
+  
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
